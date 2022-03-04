@@ -27,7 +27,7 @@ void range(double v[], int n, double start, double step){
 // for n = 1 return one-element array, with array[0] = start
 void linspace(double v[], double start, double stop, int n){
 
-	double val = (stop - start)/((double) n);
+	double val = (stop - start)/((double) n - 1);
 	v[0] = start;
 
 	for(int i  = 1; i < n; ++i){
