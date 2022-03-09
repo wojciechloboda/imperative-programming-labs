@@ -100,11 +100,42 @@ int cbuff[CBUFF_SIZE];
 int out=0, len=0;
 
 
-void cbuff_push(int cli_nr);
+void cbuff_push(int cli_nr){
 
-void cbuff_pop(void);
+	if(len >= CBUFF_SIZE){
+		printf("OVERFLOW ");
+		return;
+	}
 
-void cbuff_state(void);
+	cbuff[len++] = cli_nr;
+}
+
+void cbuff_pop(void){
+
+	if(len <= 0){
+		printf("UNDERFLOW ");
+		return;
+	}
+
+	for(int i = 0; i < len - 1; i++){
+		cbuff[i] = cbuff[i + 1];
+	}
+
+	len--;
+}
+
+void cbuff_state(void){
+
+	if(len <= 0){
+		printf("EMPTY ");
+		return;
+	}
+
+	for(int i = 0; i < len; i++){
+		printf("%d ", cbuff[i]);
+	}
+
+}
 
 int main(void) {
 	int to_do, n, client_no, op_code;
@@ -131,7 +162,6 @@ int main(void) {
 				}
 			} while(n != 0);
 			break;
-			/*
 		case 3: // queue with cyclic buffer
 			client_no = 0;
 			do {
@@ -145,7 +175,6 @@ int main(void) {
 			break;
 		default:
 			printf("NOTHING TO DO!\n");
-			*/
 	}
 	return 0;
 }
